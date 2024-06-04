@@ -1,0 +1,6 @@
+:where(.css-dev-only-do-not-override-kghr11).ant-layout .ant-layout-sider {
+    background-color: white !important;
+}
+:where(.css-kghr11).ant-layout .ant-layout-sider {
+    background-color: white !important;
+}

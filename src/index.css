@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.rubik-font {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.active {
+  color: #01a653;
+}
+/* code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  } */
+body,
+html {
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth !important;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+li {
+  list-style-type: none;
+}
+
+.loader {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.loader:after {
+  content: " ";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: loader 2s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  appearance: textfield;
+}

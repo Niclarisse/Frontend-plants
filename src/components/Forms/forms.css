@@ -1,0 +1,3 @@
+:where(.css-dev-only-do-not-override-kghr11).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: green !important;
+}
