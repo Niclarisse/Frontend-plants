@@ -21,6 +21,7 @@ const NavBar = (props) => {
     pathname.includes("plant") && props?.setSelectedCategories(value)
     console.log(`selected ${value}`);
   };
+ 
   return (
     <nav className="fixed z-50 w-full top-0 divide-y-2">
     <SubHeader/>
@@ -125,6 +126,7 @@ const NavBar = (props) => {
           <FaBars onClick={()=>setOpenMenu(true)}/>
         </div>
       </div>
+    
     </header>
     </nav>
   );

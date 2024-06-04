@@ -17,6 +17,7 @@ import Fruits from "./plantCategories/Fruits";
 import Routes from "./plantCategories/Routes";
 import Spices from "./plantCategories/Spices";
 import Edible from "./plantCategories/Edible";
+import Alphabetic from "../components/Alphabetic";
 const MedecinalPlants = () => {
   const { plantCategory,is_plants_loading } = useSelector((state) => state.plants);
   const [selectedCategories,setSelectedCategories]=useState("")
@@ -30,6 +31,7 @@ const MedecinalPlants = () => {
     <>
       <NavBar setSelectedCategories={setSelectedCategories}/>
       <div className="w-full h-screen bg-[url('https://images.pexels.com/photos/720394/pexels-photo-720394.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] bg-cover mt-[7rem] bg-fixed">
+      <Alphabetic/>
         <h1 className="pt-[8rem] text-center  text-2xl font-bold text-white">
           Medicinal Plants
         </h1>
