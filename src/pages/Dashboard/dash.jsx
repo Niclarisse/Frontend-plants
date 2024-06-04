@@ -5,11 +5,13 @@ import { RiMoneyEuroCircleLine } from "react-icons/ri";
 import ProductChart from "./ProductChart";
 import CustomPieChart from "./CustomPieChart";
 import ProductOverviewTable from "../../components/Tables/ProductOverViewTable";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCategory } from "../../redux/slices/category/categoryThunks";
 import { fetchPlants } from "../../redux/slices/plant/plantThunks";
 import { FaUsers } from "react-icons/fa6";
 const Dash = () => {
+  const { all_users } = useSelector((state) => state.users);
+  const { allplants } = useSelector((state) => state.plants);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,28 +23,28 @@ const Dash = () => {
     <DashboardLayout>
       <div className="flex gap-5">
         <OverViewCard
-          total={"20,0000"}
-          text={"Total Sales"}
+          total={allplants.length}
+          text={"Total Plants"}
           icon={<RiMoneyEuroCircleLine size={23} />}
         />
-        <OverViewCard
+        {/* <OverViewCard
           total={"10,0000"}
           text={"Total Orders"}
           icon={<RiMoneyEuroCircleLine size={23} />}
-        />
+        /> */}
         <OverViewCard
-          total={"4,0000"}
+          total={"0"}
           text={"Total WishList"}
           icon={<RiMoneyEuroCircleLine size={23} />}
         />
         <OverViewCard
-          total={"5,0000"}
+          total={"0"}
           text={"ToDay's Sales"}
           icon={<RiMoneyEuroCircleLine size={23} />}
         />
         <OverViewCard
           text={"Total Users"}
-          total={"4000"}
+          total={all_users.length}
           icon={<FaUsers size={20} />}
         />
       </div>

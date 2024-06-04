@@ -29,9 +29,9 @@ const DashboardLayout = ({ children }) => {
       navigate("/dash"); // Navigate to dashboard route
     }),
     getItem("Plants", "sub1", <Md18UpRating size={20} />, [
-      getItem("overView", "3", null, null, () => {
-        navigate("/dashboard/plant/overview");
-      }),
+      // getItem("overView", "3", null, null, () => {
+      //   navigate("/dashboard/plant/overview");
+      // }),
       getItem("Category", "2", null, null, () => {
         navigate("/dashboard/category");
       }),
@@ -40,9 +40,6 @@ const DashboardLayout = ({ children }) => {
       }),
     ]),
     getItem("Users", "sub2", <TeamOutlined size={20} />, [
-      getItem("OverView", "6", null, null, () => {
-        navigate("/dashboard/user/overview");
-      }),
       getItem("All Users", "8", null, null, () => {
         navigate("/dashboard/users");
       }),

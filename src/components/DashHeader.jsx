@@ -16,6 +16,7 @@ const DashHeader = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log("object", loggeduser);
 
   const handleLogout = async () => {
     try {
@@ -29,7 +30,7 @@ const DashHeader = () => {
         })
         .catch((err) => {
           navigate("/");
-          errorHandler(err);
+          // errorHandler(err);
         });
       // dispatch();
     } catch (error) {
@@ -68,7 +69,7 @@ const DashHeader = () => {
             <a onClick={(e) => e.preventDefault()}>
               <Space>
                 <FaRegUserCircle size={25} />
-                <p>Aliane Marie</p>
+                <p>{`${loggeduser.firstname} ${loggeduser.lastname}`}</p>
               </Space>
             </a>
           </Dropdown>

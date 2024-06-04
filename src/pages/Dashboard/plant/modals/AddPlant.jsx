@@ -91,6 +91,21 @@ const AddPlant = ({ openModal, handleModal }) => {
       console.log("Upload response:", response.data);
       toastMessage("success", "Plant image uploaded successfully.");
       dispatch(fetchPlants());
+      setUsages([]);
+      setPartToUse([]);
+      setHowToUse([]);
+      setCautions([]);
+      setPrecautions([]);
+      setMeasurements([]);
+      setPlantId("");
+      setPlant({
+        scientificName: "",
+        commonName: "",
+        category: "",
+        description: "",
+        price: "",
+      });
+      setCurrent(0);
       reset();
       // Move to next step on success
     } catch (error) {
@@ -198,7 +213,7 @@ const AddPlant = ({ openModal, handleModal }) => {
       onClose={() => {
         handleModal();
       }}
-      Style={"w-[90%] max-h-[70vh] lg:w-1/3  flex m-auto py-4"}
+      Style={"w-[90%] h-[90vh] lg:w-1/3  flex m-auto py-4"}
     >
       {" "}
       <Modal.Header>
