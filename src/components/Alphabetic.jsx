@@ -62,7 +62,7 @@ const Alphabetic = () => {
                 >
                   {el.name}
                   {isModalOpen === index && (
-                    <ul className='absolute bg-white w-64 py-3'>
+                    <ul className='absolute bg-white w-64 py-3 hover:text-black'>
                       {el?.category?.map((d, idx) => (
                         <li key={idx}>{d}</li>
                       ))}
