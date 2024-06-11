@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { SiYoutubemusic } from "react-icons/si";
@@ -18,6 +18,9 @@ const SubHeader = () => {
    await fetchCart()(dispatch);
     navigate("/cart")
   })
+  useEffect(() => {
+    fetchCart()(dispatch)
+  },[dispatch])
   return (
     <div className="bg-[#025222]">
       <div className="block justify-between px-5 md:px-[10rem] py-3 sm:flex">
@@ -25,7 +28,7 @@ const SubHeader = () => {
         <div className="flex gap-5 pt-3 sm:pt-0 justify-center items-center">
         <Space size={24} className="mr-10">
            {/* {(pathname.includes("plant") || pathname.includes("shop") || pathname.includes("cart")) ||pathname.includes("checkout") &&  */}
-           <Badge count={cartItems?.plants?.length} onClick={()=>GetCartData()}>
+           <Badge count={cartItems?.plants?.length} onClick={()=>GetCartData()} className="cursor-pointer">
               <Avatar shape="circle" icon={<BsCart />} />
             </Badge>
             {/* } */}
