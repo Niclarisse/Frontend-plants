@@ -22,11 +22,10 @@ const Heading = () => {
           <h1 className="text-[2.2rem] 2xl:text-[4.2rem] font-medium leading[1rem] 2xl:leading-[4rem] text-[#003F13]">
             Discover the Healing Power of Medicinal Plants
           </h1>
-          <p className="text-xl font-normal text-justify leading-[1.5rem] text-[#363636] py-8 pr-4">
-            It is too crucial to put your health in the hands of chance. Take
-            charge, educate yourself, and make sure using natural medicines is
-            safe for you. . Explore the hidden truths about
-            medicinal plants today!
+          <div className="text-xl font-normal text-justify text-[#363636] py-8 w-4/5">
+            Stay informed and unleash the full power of natural healing! Explore
+            our comprehensive guide to medicinal plants, revealing both their
+            benefits and potential side effects.
             <br />
             <br />
             {/* Are you feeling stressed? Struggling to manage life&apos;s
@@ -35,7 +34,7 @@ const Heading = () => {
             medicinal plants that can transform your well-being. Explore our
             selection of healing plants and embark on a journey to a healthier,
             happier you. */}
-          </p>
+          </div>
           <CustomButton />
           {/* <div className="flex gap-2 mt-2 cursor-pointer pt-4 text-[#363636] font-bold">View All Products <MdOutlineReadMore size={25}/></div> */}
         </div>

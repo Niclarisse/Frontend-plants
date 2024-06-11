@@ -36,7 +36,7 @@ export function PaymentMethodForm() {
       <Card className="w-full ">
         <div className="grid xl:grid-cols-2 border border-orange-200 px-6 py-2 rounded-md">
           <div className="w-64 ">
-            <h1 className="text-base ">Payment Method</h1>
+            <h1 className="text-lg font-semibold">Payment Method</h1>
             <p className="text-sm py-1">
               Use Right Selector to select Payment method
             </p>
@@ -45,22 +45,22 @@ export function PaymentMethodForm() {
             <Select
               defaultValue={paymentMethord}
               style={{
-                width: "100%"
+                width: "100%",
               }}
               onChange={handleChange}
               options={[
                 {
                   value: "mobileMoney",
-                  label: "Mobile Money"
+                  label: "Mobile Money",
                 },
                 {
                   value: "bank",
-                  label: "Bank"
+                  label: "Bank",
                 },
                 {
                   value: "creditCard",
-                  label: "Credit Card"
-                }
+                  label: "Credit Card",
+                },
               ]}
             />
           </div>
@@ -101,8 +101,8 @@ export function PaymentMethodForm() {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your phone!"
-                    }
+                      message: "Please input your phone!",
+                    },
                   ]}
                 >
                   <Input />
@@ -114,8 +114,8 @@ export function PaymentMethodForm() {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your Bank!"
-                    }
+                      message: "Please input your Bank!",
+                    },
                   ]}
                 >
                   <Input />
@@ -128,22 +128,26 @@ export function PaymentMethodForm() {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Card number!"
-                      }
+                        message: "Please input your Card number!",
+                      },
                     ]}
                   >
                     <Input />
                   </Form.Item>
-                  <div className="flsex gap-3"> 
-                   <div className="flex gap-3 mb-2"> <h1>Validation Date</h1><DatePicker onChange={onChange} width={"100%"}/></div> 
+                  <div className="flsex gap-3">
+                    <div className="flex gap-3 mb-2">
+                      {" "}
+                      <h1>Validation Date</h1>
+                      <DatePicker onChange={onChange} width={"100%"} />
+                    </div>
                     <Form.Item
                       label="Security code"
                       name="securityCode"
                       rules={[
                         {
                           required: true,
-                          message: "Please input your Security code!"
-                        }
+                          message: "Please input your Security code!",
+                        },
                       ]}
                     >
                       <Input />
@@ -155,8 +159,8 @@ export function PaymentMethodForm() {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Name on Card!"
-                      }
+                        message: "Please input your Name on Card!",
+                      },
                     ]}
                   >
                     <Input />

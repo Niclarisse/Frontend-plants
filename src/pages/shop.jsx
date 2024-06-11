@@ -30,32 +30,40 @@ const contentStyle = {
   borderRadius: "8px",
 };
 const Shop = () => {
-  const { allplants, is_plants_loading ,plantCategory} = useSelector((state) => state.plants);
+  const { allplants, is_plants_loading, plantCategory } = useSelector(
+    (state) => state.plants
+  );
+  const { categories } = useSelector((state) => state.category);
   const onChange = (currentSlide) => {
     console.log(currentSlide);
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [selectedCategory,setSelectedCategory]=useState("")
-  console.log("selectedCategory",selectedCategory)
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   useEffect(() => {
-    if(selectedCategory){
-
-      fetchPlantByCategories(`?category=${selectedCategory}`)(dispatch)
-    }else{
-
+    if (selectedCategory) {
+      fetchPlantByCategories(`?category=${selectedCategory}`)(dispatch);
+      window.scrollTo({
+        top: 500, // Adjust this value as needed
+        behavior: "smooth",
+      });
+    } else {
       dispatch(fetchPlants());
     }
-  }, [dispatch,selectedCategory]);
+  }, [dispatch, selectedCategory]);
   return (
     <>
-      <NavBar setSelectedCategory={setSelectedCategory}/>
+      <NavBar setSelectedCategory={setSelectedCategory} />
       <div className="mt-40 md:flex  gap-10 px-20">
         <div className="mt-5 w-full">
-          <h1 className="py-4 text-lg font-medium ">
+          {/* <h1 className="py-4 text-lg font-medium ">
             Select your prefered medicinal Plants
-          </h1>
-          <DropDownAccordion />
+          </h1> */}
+          <DropDownAccordion
+            categories={categories}
+            setSelectedCategory={setSelectedCategory}
+          />
         </div>
         <div className="w-full md:w-[60%] pt-4">
           <Carousel autoplay>
@@ -84,39 +92,40 @@ const Shop = () => {
           </div>
         ) : (
           <div className="p-10 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 w-full m-auto">
-          {(selectedCategory)?  plantCategory.map((el, i) => {
-              console.log("plant data", el);
-              return (
-                <ProductCard
-                  key={i}
-                  status={"For Sale"}
-                  img1={el?.images[0]?.url}
-                  img2={el?.images[1]?.url}
-                  name={el?.title}
-                  amount={el?.price}
-                  btnName={"ReadMore"}
-                  // btnSecondName={"Add to cart"}
-                  description={el?.description}
-                  onClick={() => navigate(`/shop/${el?._id}`)}
-                />
-              );
-            }):  allplants.map((el, i) => {
-              console.log("plant data", el);
-              return (
-                <ProductCard
-                  key={i}
-                  status={"For Sale"}
-                  img1={el?.images[0]?.url}
-                  img2={el?.images[1]?.url}
-                  name={el?.title}
-                  amount={el?.price}
-                  btnName={"ReadMore"}
-                  // btnSecondName={"Add to cart"}
-                  description={el?.description}
-                  onClick={() => navigate(`/shop/${el?._id}`)}
-                />
-              );
-            })}
+            {selectedCategory
+              ? plantCategory.map((el, i) => {
+                  console.log("plant data", el);
+                  return (
+                    <ProductCard
+                      key={i}
+                      status={"For Sale"}
+                      img1={el?.images[0]?.url}
+                      img2={el?.images[1]?.url}
+                      name={el?.title}
+                      amount={el?.price}
+                      btnName={"ReadMore"}
+                      // btnSecondName={"Add to cart"}
+                      description={el?.description}
+                      onClick={() => navigate(`/shop/${el?._id}`)}
+                    />
+                  );
+                })
+              : allplants.map((el, i) => {
+                  return (
+                    <ProductCard
+                      key={i}
+                      status={"For Sale"}
+                      img1={el?.images[0]?.url}
+                      img2={el?.images[1]?.url}
+                      name={el?.title}
+                      amount={el?.price}
+                      btnName={"ReadMore"}
+                      // btnSecondName={"Add to cart"}
+                      description={el?.description}
+                      onClick={() => navigate(`/shop/${el?._id}`)}
+                    />
+                  );
+                })}
           </div>
         )}
         <div className="mt-3">

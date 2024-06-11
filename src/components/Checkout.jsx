@@ -37,11 +37,9 @@ const Checkout = () => {
       </div>
       <div className="w-[80%] bg-white gap-4 m-auto flex mt-32 relative">
         <div className="w-[60%] bg-white border px-20 py-4 border-gsray-400">
-          <div>
-            <h1 className="text-lg font-semibold py-4">Delivery Address</h1>
-            <div>
-              <ShippingAddressForm />
-            </div>
+          <div className="mt-20">
+            <h1 className="text-lg font-semibold py-4">Select payment</h1>
+            <div>{/* <ShippingAddressForm /> */}</div>
             <div className="mt-5">
               <PaymentMethodForm />
             </div>

@@ -2,8 +2,8 @@ import axios from "axios";
 import { BACKEND_URL } from "../utils/constant";
 
 const api = axios.create({
-  baseURL: "https://medecinalbackend.onrender.com/api",
-  // baseURL: BACKEND_URL,
+  // baseURL: "https://medecinalbackend.onrender.com/api",
+  baseURL: BACKEND_URL,
 });
 
 api.interceptors.request.use(

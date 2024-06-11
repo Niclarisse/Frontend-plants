@@ -16,7 +16,7 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Modal } from "antd";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import { toastMessage } from "../utils/toast";
+import { errorHandler, toastMessage } from "../utils/toast";
 import { api } from "../utils/helpers";
 
 const { confirm } = Modal;
@@ -117,14 +117,14 @@ const ViewCart = () => {
       <div className="w-full lg:w-[80%] px-5 lg:px-0 lg:m-auto md:flex gap-5 ">
         <div className="w-full md:w-[70%] bg-white   mt-10 p-3">
           <div className="flex justify-between border border-gray-200 shadow-md px-3">
-            <h1 className="p-5 ">
-              Selcted Plant ({cartItems.plants && cartItems.plants.length}{" "}
+            <h1 className="p-5 text-lg">
+              Selected Plant ({cartItems?.plants && cartItems?.plants?.length}{" "}
               items)
             </h1>
             <h1 className="text-lg font-medium p-5 ">
-              Total:{" "}
-              <span className="text-orange-500">
-                {cartItems?.cartTotal} Price
+              Total price:
+              <span className="text-orange-500 ml-2">
+                {cartItems?.cartTotal} Rwf
               </span>
             </h1>
 
@@ -145,11 +145,13 @@ const ViewCart = () => {
               {/* </div> */}
             </div>
           </div>
-          {cartItems.plants &&
-            cartItems.plants?.map((el) => {
-              console.log("el.plant.images.length", el.plant.images.length);
+          {cartItems?.plants &&
+            cartItems?.plants?.map((el, i) => {
               return (
-                <div className="flex gap-5 border border-gray-200 shadow-md p-5">
+                <div
+                  key={i}
+                  className="flex gap-5 border border-gray-200 shadow-md p-5"
+                >
                   <div className="flex items-center space-x-2">
                     <Checkbox id="terms" className="mr-5" />
                   </div>
@@ -182,7 +184,7 @@ const ViewCart = () => {
               <IoIosArrowRoundBack color="orange" size={35} />
               <p className="pt-1 text-orange-400 hover:text-blue-500 cursor-pointer">
                 {" "}
-                Return to shipping
+                Return to shop
               </p>
             </div>
             {/* </Link> */}

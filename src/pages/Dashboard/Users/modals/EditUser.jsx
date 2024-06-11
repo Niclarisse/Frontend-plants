@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "../../../../components/Button";
+
 import Modal from "../../../../components/modal/Modal";
 
 import { useForm } from "react-hook-form";
@@ -8,6 +8,8 @@ import Select from "../../../../components/Select";
 import { fetchAllUsers } from "../../../../redux/slices/usersSlice/usersThunks";
 
 import { useDispatch } from "react-redux";
+import Button1 from "../../../../components/Button1";
+import { errorHandler, toastMessage } from "../../../../utils/toast";
 
 const EditUser = ({ openModal, handleModal, userId }) => {
   const dispatch = useDispatch();
@@ -36,24 +38,20 @@ const EditUser = ({ openModal, handleModal, userId }) => {
 
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  const handleRole = (e) => {
-    setRole(e.value);
-  };
-
   const onSubmit = () => {
     setSubmitLoading(true);
     api
-      .put(`/update-role/${userId}`, { role: role.value })
+      .put(`/user/update-role/${userId}`, { role: role.value })
       .then(() => {
         setSubmitLoading(false);
         dispatch(fetchAllUsers());
         reset();
         setRole("");
-
+        toastMessage("success", "Role updated!");
         handleModal();
       })
       .catch((error) => {
-        console.log(error);
+        errorHandler(error);
 
         setSubmitLoading(false);
       });
@@ -83,7 +81,8 @@ const EditUser = ({ openModal, handleModal, userId }) => {
               defaultValue={role}
               options={roles}
               handleChange={(e) => {
-                handleRole(e.value);
+                console.log(e);
+                setRole(e);
               }}
               register={{
                 control,
@@ -97,13 +96,11 @@ const EditUser = ({ openModal, handleModal, userId }) => {
 
           <div className="flex justify-end item-center w-full mt-6">
             <div className="flex gap-4 items-center">
-              <Button
+              <Button1
                 type="button"
                 content={
-                  <div className="flex items-center justify-center gap-3">
-                    <p className="text-fontGrey font-rubik font-normal">
-                      Discard
-                    </p>
+                  <div className="flex items-center justify-center">
+                    <p className="text-fontGrey font-normal text-lg">Discard</p>
                   </div>
                 }
                 onClick={() => {
@@ -111,21 +108,19 @@ const EditUser = ({ openModal, handleModal, userId }) => {
                 }}
                 loading={false}
                 btnColor="darkGrey"
-                Style={"w-fit mt-4 rounded-lg"}
+                Style={"w-fit h-12 mt-4 rounded-lg"}
               />
 
-              <Button
+              <Button1
                 type="submit"
                 content={
                   <div className="flex items-center justify-center gap-3">
-                    <p className="text-white font-rubik font-normal">
-                      Edit user role
-                    </p>
+                    <p className="text-white font-normal text-lg">Update</p>
                   </div>
                 }
                 loading={submitLoading}
                 btnColor="primary"
-                Style={"w-fit mt-4 rounded-lg"}
+                Style={"w-fit h-12 mt-4 rounded-lg"}
               />
             </div>
           </div>

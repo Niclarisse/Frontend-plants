@@ -22,7 +22,10 @@ import { api } from "../utils/helpers";
 import { errorHandler, toastMessage } from "../utils/toast";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import { setLoggedInUser, setToken } from "../redux/slices/loggedInSlice/loggedInSlice";
+import {
+  setLoggedInUser,
+  setToken,
+} from "../redux/slices/loggedInSlice/loggedInSlice";
 const ProductDetails = () => {
   const { plant, allplants, is_plants_loading } = useSelector(
     (state) => state.plants
@@ -36,7 +39,6 @@ const ProductDetails = () => {
     setIsModalOpen(true);
   };
 
- 
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,11 +57,10 @@ const ProductDetails = () => {
   }, [dispatch]);
   const [loading, setLoading] = useState(false);
   // const dispatch = useDispatch();
-  const handleOk = async(values) => {
+  const handleOk = async (values) => {
     setLoading(true);
     console.log("Success:", values);
 
-    
     setIsModalOpen(false);
   };
   const onSubmit = async (values) => {
@@ -72,7 +73,7 @@ const ProductDetails = () => {
         dispatch(setLoggedInUser(res.data.user));
         dispatch(setToken(res.data.token));
         localStorage.setItem("userToken", res.data.token);
-        handleOk()
+        handleOk();
         if (res.status === 200) {
           handleOk();
           console.log("res login bello", res);
@@ -82,8 +83,8 @@ const ProductDetails = () => {
         errorHandler(error);
         setLoading(false);
       });
-      setIsModalOpen(false);
-      await api
+    setIsModalOpen(false);
+    await api
       .post("/user/cart", {
         cart: [
           {
@@ -106,7 +107,6 @@ const ProductDetails = () => {
 
     fetchCart()(dispatch);
   };
- 
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -116,62 +116,71 @@ const ProductDetails = () => {
     <div className="w-full ">
       <NavBar />
       <div className="flex justify-between w-full px-20 py-10 mt-36 ">
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
-      <Form className="w-full" layout="vertical" onFinish={onSubmit}>
-          <h1 className="text-center text-lg font-medium text-[#030229] py-2">
-            Login{" "}
-          </h1>
+        <Modal
+          title="Basic Modal"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <Form className="w-full" layout="vertical" onFinish={onSubmit}>
+            <h1 className="text-center text-lg font-medium text-[#030229] py-2">
+              Login{" "}
+            </h1>
 
-          <Form.Item label=<h1 className="text-base">Email</h1> name={"email"}>
-            <Input placeholder="Email" className="rounded-lg h-12" />
-          </Form.Item>
+            <Form.Item
+              label=<h1 className="text-base">Email</h1>
+              name={"email"}
+            >
+              <Input placeholder="Email" className="rounded-lg h-12" />
+            </Form.Item>
 
-          <Form.Item
-            label=<h1 className="text-base pt-2 ">Password</h1>
-            name="password"
-            className="relative"
-          >
-            <Input.Password
-              placeholder="Enter Password"
-              className="rounded-lg h-12"
-              type={showPassword ? "text" : "password"}
-            />
-            {/* <button
+            <Form.Item
+              label=<h1 className="text-base pt-2 ">Password</h1>
+              name="password"
+              className="relative"
+            >
+              <Input.Password
+                placeholder="Enter Password"
+                className="rounded-lg h-12"
+                type={showPassword ? "text" : "password"}
+              />
+              {/* <button
                 className="absolute top-1 right-0 p-2 rounded-lg text-sm"
                 onClick={handlePasswordToggle}
               >
                 {showPassword ? <BiSolidHide size={20} color="#025222"/> : <BiShow size={20} color="#025222"/>}
               </button> */}
-          </Form.Item>
-<Form.Item>
-          <Button
-            htmlType="submit"
-            className="mt-7 w-full bg-[#025222] text-white disabled:opacity-50 disabled:cursor-not-allowed hover:text-[#025222] h-12 text-[18px] "
-          >
-            {" "}
-            {loading ? (
-              <Spin
-                indicator={<LoadingOutlined spin color="white" />}
-                className="text-white"
-              />
-            ) : (
-              "Login"
-            )}
-          </Button>
-          </Form.Item>
-          <div className="flex gap-5   items-center ">
-            <p className="text-lg mt-3">Not have an Account?</p>
-            <Button
-              onClick={() => navigate("/signup")}
-              type="submit"
-              className=" w-42 bg-[#025222] text-white disabled:opacity-50 disabled:cursor-not-allowed h-12 text-lg    "
-              // disabled={isPending}
-            >
-              Signup
-            </Button>
-          </div>
-        </Form>
-      </Modal>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                htmlType="submit"
+                className="mt-7 w-full bg-[#025222] text-white disabled:opacity-50 disabled:cursor-not-allowed hover:text-[#025222] h-12 text-[18px] "
+              >
+                {" "}
+                {loading ? (
+                  <Spin
+                    indicator={<LoadingOutlined spin color="white" />}
+                    className="text-white"
+                  />
+                ) : (
+                  "Login"
+                )}
+              </Button>
+            </Form.Item>
+            <div className="flex gap-5   items-center ">
+              <p className="text-lg mt-3">Not have an Account?</p>
+              <Button
+                onClick={() => navigate("/signup")}
+                type="submit"
+                className=" w-42 bg-[#025222] text-white disabled:opacity-50 disabled:cursor-not-allowed h-12 text-lg    "
+                // disabled={isPending}
+              >
+                Signup
+              </Button>
+            </div>
+          </Form>
+        </Modal>
         <h1 className="text-2xl font-semibold text-center ">Plant Details</h1>
         <p className="text-lg font-normal">Home /Plant /Details</p>
       </div>
@@ -201,18 +210,17 @@ const ProductDetails = () => {
           </div>
         </div>
         <div className="ml-10 w-full md:w-1/2 ">
-        
           <div className="px-2 w-full ">
             <h1 className="text-[#030229] font-medium text-2xl underline">
               {plant?.title}
             </h1>
             <div className="flex gap-2 pt-3">
-            <IoMdStar color="#FFBA00" size={20} />
-            <IoMdStar color="#FFBA00" size={20} />
-            <IoMdStar color="#FFBA00" size={20} />
-            <IoMdStar color="#FFBA00" size={20} />
-            <p>{plant?.totalrating} Review</p>
-          </div>
+              <IoMdStar color="#FFBA00" size={20} />
+              <IoMdStar color="#FFBA00" size={20} />
+              <IoMdStar color="#FFBA00" size={20} />
+              <IoMdStar color="#FFBA00" size={20} />
+              <p>{plant?.totalrating} Review</p>
+            </div>
             <p className="text-[#030229] font-bold text-md pt-3">
               Kinyarwanda Name
               <span className="font-medium text-sm pl-4">
@@ -248,20 +256,16 @@ const ProductDetails = () => {
               Family: <span className="pl-[5.5rem]">{plant?.slug} </span>
             </p>
             <div className="flex gap-2">
-            <span className=" text-sm text-center pt-1">
-          {" "}
-          Part To Use:{" "}
-        </span>
-        <ul className="text-[#030229B2] text-sm ml-10">
-          {plant?.partToUse?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
+              <span className=" text-sm text-center pt-1"> Part To Use: </span>
+              <ul className="text-[#030229B2] text-sm ml-10">
+                {plant?.partToUse?.map((el) => {
+                  console.log("how", el);
+                  return <li className="list-disc py-1.5">{el}</li>;
+                })}
+              </ul>
             </div>
-            
           </div>
-          <div >Categories: {plant?.category}</div>
+          <div>Categories: {plant?.category}</div>
           <div className="flex gap-3 mt-5">
             <div className="flex items-center justify-center gap-2 border py-2 px-5 rounded-md">
               <button disabled={count <= 1} onClick={() => setCount(count - 1)}>

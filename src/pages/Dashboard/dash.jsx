@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategory } from "../../redux/slices/category/categoryThunks";
 import { fetchPlants } from "../../redux/slices/plant/plantThunks";
 import { FaUsers } from "react-icons/fa6";
+import { PiPlantThin } from "react-icons/pi";
+import { MdCategory } from "react-icons/md";
+import { TbClipboardList } from "react-icons/tb";
 const Dash = () => {
   const { all_users } = useSelector((state) => state.users);
   const { allplants } = useSelector((state) => state.plants);
@@ -25,7 +28,20 @@ const Dash = () => {
         <OverViewCard
           total={allplants.length}
           text={"Total Plants"}
-          icon={<RiMoneyEuroCircleLine size={23} />}
+          icon={
+            <div className="flex justify-center items-center h-16 w-16 rounded-full border bg-lightWhite">
+              <PiPlantThin size={30} />
+            </div>
+          }
+        />
+        <OverViewCard
+          total={allplants.length}
+          text={"Plant Categories"}
+          icon={
+            <div className="flex justify-center items-center h-16 w-16 rounded-full border bg-lightWhite">
+              <MdCategory size={30} />
+            </div>
+          }
         />
         {/* <OverViewCard
           total={"10,0000"}
@@ -35,17 +51,29 @@ const Dash = () => {
         <OverViewCard
           total={"0"}
           text={"Total WishList"}
-          icon={<RiMoneyEuroCircleLine size={23} />}
+          icon={
+            <div className="flex justify-center items-center h-16 w-16 rounded-full border bg-lightWhite">
+              <TbClipboardList size={30} />{" "}
+            </div>
+          }
         />
         <OverViewCard
           total={"0"}
-          text={"ToDay's Sales"}
-          icon={<RiMoneyEuroCircleLine size={23} />}
+          text={"Today's Sales"}
+          icon={
+            <div className="flex justify-center items-center h-16 w-16 rounded-full border bg-lightWhite">
+              <RiMoneyEuroCircleLine size={30} />{" "}
+            </div>
+          }
         />
         <OverViewCard
           text={"Total Users"}
           total={all_users.length}
-          icon={<FaUsers size={20} />}
+          icon={
+            <div className="flex justify-center items-center h-16 w-16 rounded-full border bg-lightWhite">
+              <FaUsers size={30} />{" "}
+            </div>
+          }
         />
       </div>
       <div className="flex gap-5 flex-wrap w-full">
@@ -70,7 +98,7 @@ const Dash = () => {
         <div className="flex gap-5 flex-wrap w-full">
           <div className="mt-5 bg-white p-5 w-3/4 rounded-md shadow-md">
             <h1 className="text-[#030229] text-lg font-medium py-3">
-              Recent Plant Ordered
+              Recent transactions
             </h1>
             <ProductOverviewTable />
           </div>
@@ -82,13 +110,13 @@ const Dash = () => {
               <div className="mt-2 p-2">
                 <p>User Created </p>
                 <p>
-                  created By <span>Nikuze</span>{" "}
+                  created By <span>Nikuze</span>
                 </p>
               </div>
               <div className="mt-3 p-2">
                 <p>Plant wishList </p>
                 <p>
-                  Done By <span>Nikuze</span>{" "}
+                  Done By <span>Nikuze</span>
                 </p>
               </div>
             </div>

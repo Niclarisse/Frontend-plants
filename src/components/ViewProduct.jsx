@@ -29,7 +29,7 @@ const ViewProducts = () => {
   const [currentImage, setCurrentImage] = useState(
     plant?.images && plant?.images[0]?.url
   );
-  const [count, setCount] = useState(1);
+
   const navigate = useNavigate();
   const { plantId } = useParams();
   const dispatch = useDispatch();
@@ -44,6 +44,7 @@ const ViewProducts = () => {
   useEffect(() => {
     dispatch(fetchPlants());
   }, [dispatch]);
+  console.log("PLANT", plant);
   return (
     <div className="w-full">
       <NavBar />
@@ -53,128 +54,151 @@ const ViewProducts = () => {
       </div>
       <div className="w-[85%] m-auto md:flex gap-5 h-[40rem]">
         <div className=" w-full md:w-2/5 h-full">
-          {" "}
-          <div className="w-full h-[70%] flex items-center justify-center bg-gray-200">
-            <img src={currentImage} alt="" className="w-[50%] h-[50%]" />
+          <div className="w-full h-[70%] flex items-center justify-center bg-gray-200 rounded-lg">
+            <img
+              src={currentImage}
+              alt=""
+              className="w-[70%] h-[70%] rounded-lg"
+            />
           </div>
-          <div className="w-full h-[25%] mt-2 bg-gray-200 rounded-sm flex gap-5 justify-center items-center">
-            {plant?.images?.map((el) => {
+          <div className="w-full h-[25%] mt-2 bg-gray-200 rounded-sm flex gap-5 justify-center items-center overflow-auto">
+            {plant?.images?.map((el, i) => {
               return (
                 <img
+                  key={i}
                   src={el?.url}
                   onClick={() => {
                     el?.url && setCurrentImage(el?.url);
                   }}
                   alt=""
-                  className="w-24 h-24 rounded-md border border-green-300"
+                  className="w-24 h-24 rounded-md border border-green-300 "
                 />
               );
             })}
           </div>
         </div>
         <div className="ml-10 w-full md:w-1/2 ">
-          <div className="px-2  w-full ">
-            <h1 className="text-[#030229] font-medium text-2xl underline pb-4">
-              {plant?.title}
-            </h1>
-            {/* <p className="text-[#030229] font-medium text-md pt-3">
-              Kinyarwanda Name
-              <span className="font-medium text-sm pl-4"> Igisura</span>
-            </p> */}
-            <p className="text-[#030229] font-bold text-md py-1">
-              {" "}
-              Scientific name:{" "}
+          <h1 className="text-[#030229] font-medium text-2xl underline pb-4">
+            {plant?.title}
+          </h1>
+          <div className="flex flex-col gap-3 w-full ">
+            <div className="text-[#030229] font-bold text-md py-1">
+              Scientific name:
               <span className="font-medium text-sm pl-4">
                 {plant?.scientificName}
               </span>
-            </p>
-            <p className="text-[#030229] font-bold text-md py-[2px]">
-              {" "}
-              Common name:{" "}
-              <span className="font-medium text-sm pl-4">
-                {" "}
-                {plant?.commonName}
-              </span>
-            </p>
-            {/* <p className="text-[#030229B2] text-sm pt-2 font-bold">
-              Family: <span className="pl-[5.5rem] font-medium">{plant?.famillyName} </span>
-            </p> */}
-            <div className="flex gap-2">
-              <span className=" text-sm text-center pt-1 font-bold">
-                {" "}
-                Part To Use:{" "}
-              </span>
-              <ul className="text-[#030229B2] text-sm ml-10">
-                {plant?.partToUse?.map((el) => {
-                  console.log("how", el);
-                  return <li className="list-disc py-1.5">{el}</li>;
-                })}
-              </ul>
             </div>
-          </div>
-          <div className="font-bold">
-            Categories:
-            <span className="pl-[4rem] font-medium">{plant?.category}</span>
+            {plant?.commonName && (
+              <div className="text-[#030229] font-bold text-md ">
+                {" "}
+                Common name:{" "}
+                <span className="font-medium text-sm pl-4 capitalize">
+                  {" "}
+                  {plant?.commonName}
+                </span>
+              </div>
+            )}
+
+            {plant?.partToUse.length > 0 && (
+              <div className="flex gap-2 items-center">
+                <span className="text-center pt-1 font-bold ">
+                  Part To Use:
+                </span>
+                <span className="pl-[2rem] text-sm capitalize">
+                  {plant?.partToUse?.join(" & ")}
+                </span>
+              </div>
+            )}
+            <div className="font-bold">
+              Category:
+              <span className="pl-[4rem] font-normal capitalize">
+                {plant?.category}
+              </span>
+            </div>
           </div>
         </div>
       </div>
       <div className="px-20 mt-[30rem] md:mt-5 lg:mts-[50rem] xls:mt-[30rem] 2xls:mt-80 w-[75%] m-auto">
-        <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
-          {" "}
-          Medicinal use:{" "}
-        </h1>
-        <ul className="text-[#030229B2] text-sm">
-          {plant?.medicinalUse?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
-        <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
-          {" "}
-          How To Use:{" "}
-        </h1>
-        <ul className="text-[#030229B2] text-sm">
-          {plant?.howToUse?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
+        {plant?.medicinalUse.length > 0 && (
+          <div>
+            {" "}
+            <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+              Medicinal use:
+            </h1>
+            <ul className="text-[#030229B2] text-sm">
+              {plant?.medicinalUse?.map((el, i) => {
+                return (
+                  <li key={i} className="list-disc py-1.5">
+                    {el}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+        {plant?.howToUse.length > 0 && (
+          <div>
+            {" "}
+            <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+              {" "}
+              How To Use:{" "}
+            </h1>
+            <ul className="text-[#030229B2] text-sm">
+              {plant?.howToUse?.map((el) => {
+                console.log("how", el);
+                return <li className="list-disc py-1.5">{el}</li>;
+              })}
+            </ul>
+          </div>
+        )}
+
         {plant?.measurements?.length > 0 && (
           <>
             <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
               {" "}
-              Measurements:{" "}
+              A useful table for quick measurements:{" "}
             </h1>
             <ul className="text-[#030229B2] text-sm">
               {plant?.measurements?.map((el) => {
-                console.log("how", el);
                 return <li className="list-disc py-1.5">{el}</li>;
               })}
             </ul>
           </>
         )}
-        <h1 className="text-[#030229] font-medium text-2xl text-center py-3">
-          {" "}
-          Dosages and preparation:{" "}
-        </h1>
-        <ul className="text-[#030229B2] text-sm">
-          {plant?.dosages?.all?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
-        <ul className="text-[#030229B2] text-sm">
-          {plant?.dosages?.adults?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
-        <ul className="text-[#030229B2] text-sm">
-          {plant?.dosages?.children?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
+
+        {plant?.dosages?.all?.length > 0 ||
+          plant?.dosages?.adults?.length > 0 ||
+          (plant?.dosages?.children?.length > 0 && (
+            <div>
+              <h1 className="text-[#030229] font-medium text-2xl text-center py-3">
+                {" "}
+                Dosages and preparation:{" "}
+              </h1>
+              <ul className="text-[#030229B2] text-sm">
+                {plant?.dosages?.all?.map((el, i) => {
+                  console.log("how", el);
+                  return (
+                    <li key={i} className="list-disc py-1.5">
+                      {el}
+                    </li>
+                  );
+                })}
+              </ul>
+              <ul className="text-[#030229B2] text-sm">
+                {plant?.dosages?.adults?.map((el) => {
+                  console.log("how", el);
+                  return <li className="list-disc py-1.5">{el}</li>;
+                })}
+              </ul>
+              <ul className="text-[#030229B2] text-sm">
+                {plant?.dosages?.children?.map((el) => {
+                  console.log("how", el);
+                  return <li className="list-disc py-1.5">{el}</li>;
+                })}
+              </ul>
+            </div>
+          ))}
+
         {plant?.sideEffect?.length > 0 && (
           <>
             <h1 className="text-[#030229] font-medium text-xl pt-4 text-center py-3">
@@ -222,7 +246,10 @@ const ViewProducts = () => {
                 btnName={"ReadMore"}
                 // btnSecondName={"Add to cart"}
                 description={el?.description}
-                onClick={() => navigate(`/plant/view/${el?._id}`)}
+                onClick={() => {
+                  navigate(`/plant/view/${el?._id}`);
+                  window.scrollTo(0, 0);
+                }}
               />
             );
           })}
