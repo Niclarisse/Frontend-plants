@@ -31,7 +31,7 @@ const LoginForm = () => {
         localStorage.setItem("userToken", res.data.token);
 
         if (res.status === 200) {
-        res?.data?.user?.role==="admin" ? navigate("/dash") :navigate("/plant");
+        res?.data?.user?.role==="admin" ? navigate("/dash") :navigate("/plants");
         }
       })
       .catch((error) => {
