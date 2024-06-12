@@ -5,16 +5,9 @@ import img from "../assets/images/pexels-mattycphoto-1113145.jpg";
 import img2 from "../assets/images/product-1-1.png";
 import img3 from "../assets/images/download (3).png";
 import img4 from "../assets/images/product-8.png";
-import { IoMdStar } from "react-icons/io";
-import { GoPlus } from "react-icons/go";
-import { HiOutlineMinus } from "react-icons/hi2";
-import Button from "./Button";
 import ProductCard from "./ProductCard";
 import Footer from "./Footer";
-import aboutImage from "../assets/images/product-1-1 (1).png";
-import aboutImage1 from "../assets/images/download (2).png";
-import aboutImage2 from "../assets/images/download (3).png";
-import aboutImage3 from "../assets/images/download (4).png";
+
 import {
   fetchPlants,
   fetchSinglePlant,
@@ -103,7 +96,7 @@ const ViewProducts = () => {
               </div>
             )}
 
-            {plant?.partToUse.length > 0 && (
+            {plant?.partToUse?.length > 0 && (
               <div className="flex gap-2 items-center">
                 <span className="text-center pt-1 font-bold ">
                   Part To Use:
@@ -131,7 +124,7 @@ const ViewProducts = () => {
         </div>
       </div>
       <div className="px-20 mt-[30rem] md:mt-5 lg:mts-[50rem] xls:mt-[30rem] 2xls:mt-80 w-[75%] m-auto">
-        {plant?.medicinalUse.length > 0 ? (
+        {plant?.medicinalUse?.length > 0 ? (
           <div>
             {" "}
             <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
@@ -158,7 +151,7 @@ const ViewProducts = () => {
             How To Use:{" "}
           </h1>
           <ul className="text-[#030229B2]">
-            {plant?.howToUse.length > 0 ? (
+            {plant?.howToUse?.length > 0 ? (
               plant?.howToUse?.map((el, i) => {
                 console.log("how", el);
                 return (
@@ -260,7 +253,7 @@ const ViewProducts = () => {
             Cautions:{" "}
           </h1>
           <ul className="text-[#030229B2]">
-            {plant?.cautions.length > 0 ? (
+            {plant?.cautions?.length > 0 ? (
               plant?.cautions?.map((el, i) => {
                 console.log("how", el);
                 return (
@@ -274,7 +267,7 @@ const ViewProducts = () => {
             )}
           </ul>
         </div>
-        {plant?.precautions.length > 0 && (
+        {plant?.precautions?.length > 0 && (
           <div>
             {" "}
             <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
@@ -308,7 +301,7 @@ const ViewProducts = () => {
         </div>
       ) : (
         <div className="p-10 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 w-full m-auto">
-          {allplants.map((el, i) => {
+          {allplants?.map((el, i) => {
             console.log("plant data", el);
             return (
               <ProductCard
