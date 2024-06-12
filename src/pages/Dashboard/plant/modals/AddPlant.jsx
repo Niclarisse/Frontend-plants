@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { set, useForm } from "react-hook-form";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategory } from "../../../../redux/slices/category/categoryThunks";
 import { api } from "../../../../utils/helpers";
 import { errorHandler, toastMessage } from "../../../../utils/toast";
 import Modal from "../../../../components/modal/Modal";

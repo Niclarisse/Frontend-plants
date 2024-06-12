@@ -22,7 +22,7 @@ const TextArea = ({
   fieldName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
   return register ? (
     <div className={`flex flex-col justify-start items-start ${customClass}`}>
-      <label htmlFor={labelFor} className="font-nunito font-normal mb-1">
+      <label htmlFor={labelFor} className=" font-normal mb-1">
         {labelText}
       </label>
       <textarea

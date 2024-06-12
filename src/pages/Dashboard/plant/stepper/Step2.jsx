@@ -1,5 +1,4 @@
 import { Button, Form, Input, Radio, Select, Space, Steps } from "antd";
-import { BiMinus, BiPlus } from "react-icons/bi";
 import { FiMinus } from "react-icons/fi";
 
 const Step2 = ({
@@ -183,7 +182,7 @@ const Step2 = ({
     );
     setMeasurements(newSideEffects);
   };
-
+  console.log("dosageType");
   return (
     <div className="mt-10">
       <span className="text-lg">Medecinal use</span>
@@ -415,19 +414,18 @@ const Step2 = ({
       {/* dosage and measurements */}
       <div>
         <h2 className="mt-10 text-lg font-medium">Preparation</h2>
-        <Form.Item name="dosageType" label="Dosage Type">
-          <Radio.Group
-            onChange={(e) => setDosageType(e.target.value)}
-            value={dosageType}
-          >
-            <Radio value="all" checked={true}>
-              All
-            </Radio>
-            <Radio value="separate" checked={dosageType === "separate"}>
-              Separate for Adults and Children
-            </Radio>
-          </Radio.Group>
-        </Form.Item>
+
+        <Radio.Group
+          onChange={(e) => setDosageType(e.target.value)}
+          value={dosageType}
+        >
+          <Radio value="all" checked={true}>
+            All
+          </Radio>
+          <Radio value="separate" checked={dosageType === "separate"}>
+            Separate for Adults and Children
+          </Radio>
+        </Radio.Group>
 
         {dosageType === "all" && (
           <div>
