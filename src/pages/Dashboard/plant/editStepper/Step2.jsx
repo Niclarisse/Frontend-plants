@@ -1,4 +1,5 @@
 import { Button, Form, Input, Radio, Select, Space, Steps } from "antd";
+import { BiMinus, BiPlus } from "react-icons/bi";
 import { FiMinus } from "react-icons/fi";
 
 const Step2 = ({
@@ -20,22 +21,43 @@ const Step2 = ({
   dosageType,
   measurements,
   setMeasurements,
+  data,
+  setData,
 }) => {
+  // medecinal use
+  const addUse = () => {
+    setData({ ...data, medicinalUse: [...data.medicinalUse, ""] });
+  };
+
+  const removeUsage = (index) => {
+    const updatedMedecinalUse = [...data.medicinalUse];
+    updatedMedecinalUse.splice(index, 1);
+    setData({ ...data, medicinalUse: updatedMedecinalUse });
+  };
+
+  const handleUsagesChange = (index, event) => {
+    const updatedMedicinalUse = [...data.medicinalUse];
+    updatedMedicinalUse[index] = event.target.value;
+    setData({ ...data, medicinalUse: updatedMedicinalUse });
+  };
+
+  // SIDE EFFECT
   const addSideEffect = () => {
-    setSideEffects([...sideEffects, ""]);
+    setData({ ...data, sideEffect: [...data.sideEffect, ""] });
   };
 
   const removeSideEffect = (index) => {
-    const newSideEffects = sideEffects.filter((_, i) => i !== index);
-    setSideEffects(newSideEffects);
+    const updatedSideEffects = [...data.sideEffect];
+    updatedSideEffects.splice(index, 1);
+    setData({ ...data, sideEffect: updatedSideEffects });
   };
 
   const handleInputChange = (index, event) => {
-    const newSideEffects = sideEffects.map((effect, i) =>
-      i === index ? event.target.value : effect
-    );
-    setSideEffects(newSideEffects);
+    const updatedSideEffects = [...data.sideEffect];
+    updatedSideEffects[index] = event.target.value;
+    setData({ ...data, sideEffect: updatedSideEffects });
   };
+
   // all
   const addAllDosage = () => {
     setDosages({ ...dosages, all: [...dosages.all, ""] });
@@ -82,22 +104,6 @@ const Step2 = ({
     const newDosages = [...dosages.children];
     newDosages[index] = event.target.value;
     setDosages({ ...dosages, children: newDosages });
-  };
-
-  const addUse = () => {
-    setUsages([...usages, ""]);
-  };
-
-  const removeUsage = (index) => {
-    const newUsages = usages.filter((_, i) => i !== index);
-    setUsages(newUsages);
-  };
-
-  const handleUsagesChange = (index, event) => {
-    const newUsages = usages.map((effect, i) =>
-      i === index ? event.target.value : effect
-    );
-    setUsages(newUsages);
   };
 
   // part use
@@ -182,11 +188,11 @@ const Step2 = ({
     );
     setMeasurements(newSideEffects);
   };
-  console.log("dosageType");
+  console.log("@@@@@", data);
   return (
     <div className="mt-10">
       <span className="text-lg">Medecinal use</span>
-      {usages.map((use, index) => (
+      {data?.medicinalUse?.map((use, index) => (
         <Form.Item
           key={index}
           label={`Usage ${index + 1}`}
@@ -224,7 +230,7 @@ const Step2 = ({
         </Button>
       </Form.Item>
       <span className="text-lg">Part to use</span>
-      {partToUse.map((part, index) => (
+      {data?.partToUse?.map((part, index) => (
         <Form.Item
           key={index}
           label={`Part ${index + 1}`}
@@ -262,7 +268,7 @@ const Step2 = ({
         </Button>
       </Form.Item>
 
-      {sideEffects.map((effect, index) => (
+      {data?.sideEffect?.map((effect, index) => (
         <Form.Item
           key={index}
           label={`Side effect ${index + 1}`}
@@ -299,7 +305,7 @@ const Step2 = ({
           Add Side Effect
         </Button>
       </Form.Item>
-      {howToUse.map((effect, index) => (
+      {data?.howToUse?.map((effect, index) => (
         <Form.Item
           key={index}
           label={`Tip ${index + 1}`}
@@ -336,7 +342,7 @@ const Step2 = ({
           Add How to use this plant
         </Button>
       </Form.Item>
-      {cautions.map((effect, index) => (
+      {data?.cautions?.map((effect, index) => (
         <Form.Item
           key={index}
           label={`Caution ${index + 1}`}
@@ -373,7 +379,7 @@ const Step2 = ({
           Add Cautions
         </Button>
       </Form.Item>
-      {precautions.map((effect, index) => (
+      {data?.precautions?.map((effect, index) => (
         <Form.Item
           key={index}
           label={`precaution ${index + 1}`}
@@ -414,22 +420,25 @@ const Step2 = ({
       {/* dosage and measurements */}
       <div>
         <h2 className="mt-10 text-lg font-medium">Preparation</h2>
-
-        <Radio.Group
-          onChange={(e) => setDosageType(e.target.value)}
-          value={dosageType}
-        >
-          <Radio value="all" checked={true}>
-            All
-          </Radio>
-          <Radio value="separate" checked={dosageType === "separate"}>
-            Separate for Adults and Children
-          </Radio>
-        </Radio.Group>
+        {/* <Form.Item name="dosageType" label="Dosage Type"> */}
+        <div className="mb-2 ml-5">
+          <Radio.Group
+            onChange={(e) => setDosageType(e.target.value)}
+            value={dosageType}
+          >
+            <Radio value="all" checked={dosageType == "all"}>
+              All
+            </Radio>
+            <Radio value="separate" checked={dosageType == "separate"}>
+              Separate for Adults and Children
+            </Radio>
+          </Radio.Group>
+        </div>
+        {/* </Form.Item> */}
 
         {dosageType === "all" && (
           <div>
-            {dosages.all.map((dose, index) => (
+            {data?.dosages?.all?.map((dose, index) => (
               <Form.Item
                 key={index}
                 label={`Preparation ${index + 1}`}
@@ -472,7 +481,7 @@ const Step2 = ({
         {dosageType === "separate" && (
           <>
             <h3 className="text-xl">Adults</h3>
-            {dosages.adults.map((dose, index) => (
+            {data?.dosages?.adults?.map((dose, index) => (
               <Form.Item
                 key={index}
                 label={`Preparation ${index + 1}`}
@@ -513,7 +522,7 @@ const Step2 = ({
             </Form.Item>
 
             <h3 className="text-xl">Children</h3>
-            {dosages.children.map((dose, index) => (
+            {data?.dosages?.children?.map((dose, index) => (
               <Form.Item
                 key={index}
                 label={`Preparation ${index + 1}`}
@@ -553,7 +562,7 @@ const Step2 = ({
           </>
         )}
 
-        {measurements.map((dose, index) => (
+        {data.measurements.map((dose, index) => (
           <Form.Item
             key={index}
             label={`Preparation ${index + 1}`}

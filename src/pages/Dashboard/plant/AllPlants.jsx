@@ -11,12 +11,15 @@ import { Fragment, useState } from "react";
 import { truncate } from "../../../utils";
 import AddPlant from "./modals/AddPlant";
 import DeletePlant from "./modals/DeletePlant";
+import EditPlant from "./modals/EditPlant";
 
 const AllPlants = () => {
   const { allplants } = useSelector((state) => state.plants);
   const [openAdd, setOPenAdd] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [plantId, setPlantId] = useState(null);
   const navigate = useNavigate();
+  const [plantData, setPlantData] = useState({});
 
   const [openDelete, setOpenDelete] = useState(false);
 
@@ -27,7 +30,11 @@ const AllPlants = () => {
   const handleOpenAddPlant = () => {
     setOPenAdd(!openAdd);
   };
-  console.log("All", allplants);
+
+  const handleEditPlant = () => {
+    setOpenEdit(!openEdit);
+  };
+
   const columns = [
     {
       Header: "Id",
@@ -220,8 +227,8 @@ const AllPlants = () => {
                     <h1
                       className="px-4 py-2 w-full hover:bg-[#D9D9D9] text-center cursor-pointer text-lg"
                       onClick={() => {
-                        // setCategoryData(row.original);
-                        // handleEditCategory();
+                        setPlantData(row.original);
+                        handleEditPlant();
                       }}
                     >
                       Edit
@@ -246,8 +253,6 @@ const AllPlants = () => {
     },
   ];
 
-  console.log("allplants", allplants);
-
   return (
     <DashboardLayout>
       <div>
@@ -257,16 +262,13 @@ const AllPlants = () => {
           isModalOpen={openDelete}
           id={plantId}
         />
-        {/* <div className="flex justify-between my-5 ">
-          <h1 className="poppins text-xl font-semibold">All Plants</h1>
-          <button
-            className="text-white px-4 py-2 bg-[#003F13] rounded-md text-lg"
-            onClick={() => navigate("/dashboard/plant/add")}
-          >
-            Add Plant
-          </button>
-        </div>
-        <PlantTable /> */}
+        <EditPlant
+          handleModal={handleEditPlant}
+          openModal={openEdit}
+          data={plantData}
+          setData={setPlantData}
+        />
+
         <Table
           title={
             <div className="flex items-center space-x-5">

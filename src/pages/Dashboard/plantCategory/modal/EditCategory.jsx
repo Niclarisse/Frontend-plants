@@ -90,7 +90,7 @@ const EditCategory = ({ openModal, handleModal, data, setData }) => {
                 handleName(e);
               }}
               inputStyle={"rounded-lg border border-lightGrey"}
-              placeholder={"Enter bank name"}
+              placeholder={"Enter category name"}
               register={register}
               errors={errors}
             />
@@ -106,7 +106,7 @@ const EditCategory = ({ openModal, handleModal, data, setData }) => {
               inputStyle={
                 "rounded-lg border border-lightGrey bg-white h-[100px]"
               }
-              placeholder={"Enter bank description"}
+              placeholder={"Enter category description"}
               onChange={(e) => {
                 handleDescription(e);
               }}

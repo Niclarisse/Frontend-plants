@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { api } from "../../../../utils/helpers";
 import { errorHandler, toastMessage } from "../../../../utils/toast";
 import Modal from "../../../../components/modal/Modal";
 import Button1 from "../../../../components/Button1";
 import { Steps } from "antd";
-import Step1 from "../stepper/Step1";
-import Step2 from "../stepper/Step2";
-import Step3 from "../stepper/Step3";
 import { fetchPlants } from "../../../../redux/slices/plant/plantThunks";
+import Step1 from "../editStepper/Step1";
+import Step2 from "../editStepper/Step2";
+import Step3 from "../editStepper/Step3";
 
-const AddPlant = ({ openModal, handleModal }) => {
+const EditPlant = ({ openModal, handleModal, data, setData }) => {
   const [current, setCurrent] = useState(0);
   const [sideEffects, setSideEffects] = useState([]);
   const [uploadLoading, setUploadLoading] = useState(false);
@@ -30,9 +30,10 @@ const AddPlant = ({ openModal, handleModal }) => {
   const [cautions, setCautions] = useState([]);
   const [precautions, setPrecautions] = useState([]);
   const [measurements, setMeasurements] = useState([]);
-  const [dosageType, setDosageType] = useState("all");
-  const [plantId, setPlantId] = useState(null);
 
+  const defaultDosageType = data?.dosages?.all?.length > 0 ? "all" : "separate";
+
+  const [plantId, setPlantId] = useState(null);
   const [plant, setPlant] = useState({
     title: "",
     scientificName: "",
@@ -43,6 +44,7 @@ const AddPlant = ({ openModal, handleModal }) => {
   });
 
   const [fileList, setFileList] = useState([]);
+  const [dosageType, setDosageType] = useState(defaultDosageType);
 
   const savePlant = async () => {
     const data = {
@@ -181,11 +183,11 @@ const AddPlant = ({ openModal, handleModal }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setPlant((prevState) => ({ ...prevState, [name]: value }));
+    setData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleCategoryChange = (selectedOption) => {
-    setPlant((prevState) => ({ ...prevState, category: selectedOption.label }));
+    setData((prevState) => ({ ...prevState, category: selectedOption.label }));
   };
 
   return (
@@ -197,8 +199,8 @@ const AddPlant = ({ openModal, handleModal }) => {
       Style={"w-[90%] h-[90vh] lg:w-1/3  flex m-auto py-4"}
     >
       {" "}
-      <Modal.Header>
-        <h1 className="font-bold text-lg">Add plant</h1>
+      <Modal.Header className={"sticky top-0 bg-white z-10"}>
+        <h1 className="font-bold text-lg">Edit plant</h1>
       </Modal.Header>
       <Modal.Body>
         <div className="flex justify-between items-center">
@@ -228,6 +230,8 @@ const AddPlant = ({ openModal, handleModal }) => {
                 plant={plant}
                 control={control}
                 handleCategoryChange={handleCategoryChange}
+                data={data}
+                setData={setData}
               />
             )}
             {current === 1 && (
@@ -250,6 +254,8 @@ const AddPlant = ({ openModal, handleModal }) => {
                 usages={usages}
                 measurements={measurements}
                 setMeasurements={setMeasurements}
+                data={data}
+                setData={setData}
               />
             )}
             {current === 2 && (
@@ -334,4 +340,4 @@ const AddPlant = ({ openModal, handleModal }) => {
   );
 };
 
-export default AddPlant;
+export default EditPlant;
