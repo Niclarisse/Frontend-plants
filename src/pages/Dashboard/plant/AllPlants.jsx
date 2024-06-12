@@ -27,7 +27,7 @@ const AllPlants = () => {
   const handleOpenAddPlant = () => {
     setOPenAdd(!openAdd);
   };
-
+  console.log("All", allplants);
   const columns = [
     {
       Header: "Id",
@@ -40,6 +40,23 @@ const AllPlants = () => {
           </div>
         );
       },
+    },
+    {
+      Header: "Image",
+      accessor: "images",
+      Cell: ({ row }) => {
+        return (
+          <div className="flex gap-4 items-center font-normal rounded-full">
+            <img
+              src={row?.original?.images[0]?.url}
+              alt=""
+              srcset=""
+              className="rounded-full h-12 w-12"
+            />
+          </div>
+        );
+      },
+      filtable: "false",
     },
     {
       Header: "Names",
@@ -55,18 +72,7 @@ const AllPlants = () => {
       },
       filtable: "true",
     },
-    {
-      Header: "Image",
-      accessor: "",
-      Cell: ({ row }) => {
-        return (
-          <div className="flex gap-4 items-center font-normal">
-            <p className=" text-[#4B4B4B]">{row.original.title}</p>
-          </div>
-        );
-      },
-      filtable: "false",
-    },
+
     {
       Header: "Common Name",
       accessor: "commonName",

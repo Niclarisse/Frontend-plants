@@ -61,7 +61,6 @@ const AddPlant = ({ openModal, handleModal }) => {
     setSubmitLoading(true);
     try {
       const response = await api.post("/plants", data);
-      console.log("API response:", response.data);
       setPlantId(response.data._id);
       dispatch(fetchPlants());
       toastMessage("success", "continue to upload image");
@@ -75,7 +74,6 @@ const AddPlant = ({ openModal, handleModal }) => {
   };
 
   const handleUpload = async () => {
-    console.log("Updloading...");
     if (fileList.length === 0) {
       return alert("Please upload an image.");
     }
@@ -98,6 +96,11 @@ const AddPlant = ({ openModal, handleModal }) => {
       setPrecautions([]);
       setMeasurements([]);
       setPlantId("");
+      setDosages({
+        adults: [],
+        children: [],
+        all: [],
+      });
       setPlant({
         scientificName: "",
         commonName: "",
@@ -105,6 +108,10 @@ const AddPlant = ({ openModal, handleModal }) => {
         description: "",
         price: "",
       });
+      for (let key of formData.keys()) {
+        formData.delete(key);
+      }
+
       setCurrent(0);
       reset();
       // Move to next step on success
@@ -135,12 +142,6 @@ const AddPlant = ({ openModal, handleModal }) => {
     setCurrent(newCurrent < 0 ? 0 : newCurrent);
   };
 
-  const [data, setData] = useState({
-    title: "",
-    description: "",
-    status: "active",
-  });
-
   const {
     register,
     handleSubmit,
@@ -170,25 +171,6 @@ const AddPlant = ({ openModal, handleModal }) => {
   //       });
   //   };
 
-  const handleName = (e) => {
-    const { value } = e.target;
-    setData((prevData) => {
-      return {
-        ...prevData,
-        title: value,
-      };
-    });
-  };
-
-  const handleDescription = (e) => {
-    const { value } = e.target;
-    setData((prevData) => {
-      return {
-        ...prevData,
-        description: value,
-      };
-    });
-  };
   const onChange = (value) => {
     console.log("onChange:", value);
     setCurrent(value);

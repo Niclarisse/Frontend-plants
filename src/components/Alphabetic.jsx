@@ -26,34 +26,13 @@ const Alphabetic = () => {
     setIsModalOpen(null);
   };
 
-  const Alphabet = [
-    { name: "A", category: [""] },
-    { name: "B" },
-    { name: "C" },
-    { name: "D" },
-    { name: "E" },
-    { name: "F" },
-    { name: "G" },
-    { name: "H" },
-    { name: "I" },
-    { name: "J" },
-    { name: "K" },
-    { name: "L", category: ["Leaves", "Lesser-known"] },
-    { name: "M" },
-    { name: "N" },
-    { name: "O" },
-    { name: "P" },
-    { name: "Q" },
-    { name: "U" },
-    { name: "R", category: ["Roots", "Resolved"] },
-    { name: "S" },
-    { name: "V" },
-    { name: "F" },
-    { name: "W" },
-    { name: "X" },
-    { name: "Y" },
-    { name: "Z" },
-  ];
+  const Alphabet = [];
+
+  // Loop through ASCII codes for 'A' (65) to 'Z' (90)
+  for (let i = 65; i <= 90; i++) {
+    Alphabet.push({ name: String.fromCharCode(i) });
+  }
+
   console.log("selectedLetter", selectedLetter);
   const getPlants = (selectedLetter) => {
     setLoading(true);
