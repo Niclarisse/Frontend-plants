@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlantByCategories } from "../redux/slices/plant/plantThunks";
 import { fetchPlants } from "../redux/slices/plant/plantThunks";
+import { fetchCategory } from "../redux/slices/category/categoryThunks";
 const contentStyle = {
   margin: 0,
   height: "70vh",
@@ -52,6 +53,10 @@ const Shop = () => {
       dispatch(fetchPlants());
     }
   }, [dispatch, selectedCategory]);
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, []);
   return (
     <>
       <NavBar setSelectedCategory={setSelectedCategory} />
