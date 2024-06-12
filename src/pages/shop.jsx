@@ -91,42 +91,47 @@ const Shop = () => {
             <Skeleton />
           </div>
         ) : (
-          <div className="p-10 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 w-full m-auto">
-            {selectedCategory
-              ? plantCategory.map((el, i) => {
-                  console.log("plant data", el);
-                  return (
-                    <ProductCard
-                      key={i}
-                      status={"For Sale"}
-                      img1={el?.images[0]?.url}
-                      img2={el?.images[1]?.url}
-                      name={el?.title}
-                      amount={el?.price}
-                      btnName={"ReadMore"}
-                      // btnSecondName={"Add to cart"}
-                      description={el?.description}
-                      onClick={() => navigate(`/shop/${el?._id}`)}
-                    />
-                  );
-                })
-              : allplants.map((el, i) => {
-                  return (
-                    <ProductCard
-                      key={i}
-                      status={"For Sale"}
-                      img1={el?.images[0]?.url}
-                      img2={el?.images[1]?.url}
-                      name={el?.title}
-                      amount={el?.price}
-                      btnName={"ReadMore"}
-                      // btnSecondName={"Add to cart"}
-                      description={el?.description}
-                      onClick={() => navigate(`/shop/${el?._id}`)}
-                    />
-                  );
-                })}
-          </div>
+          <>
+            <span className="text-lg font-semibold ml-10">
+              {selectedCategory ? selectedCategory : ""}
+            </span>
+            <div className="p-10 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 w-full m-auto">
+              {selectedCategory
+                ? plantCategory.map((el, i) => {
+                    console.log("plant data", el);
+                    return (
+                      <ProductCard
+                        key={i}
+                        status={"For Sale"}
+                        img1={el?.images[0]?.url}
+                        img2={el?.images[1]?.url}
+                        name={el?.title}
+                        amount={el?.price}
+                        btnName={"ReadMore"}
+                        // btnSecondName={"Add to cart"}
+                        description={el?.description}
+                        onClick={() => navigate(`/shop/${el?._id}`)}
+                      />
+                    );
+                  })
+                : allplants.map((el, i) => {
+                    return (
+                      <ProductCard
+                        key={i}
+                        status={"For Sale"}
+                        img1={el?.images[0]?.url}
+                        img2={el?.images[1]?.url}
+                        name={el?.title}
+                        amount={el?.price}
+                        btnName={"ReadMore"}
+                        // btnSecondName={"Add to cart"}
+                        description={el?.description}
+                        onClick={() => navigate(`/shop/${el?._id}`)}
+                      />
+                    );
+                  })}
+            </div>
+          </>
         )}
         <div className="mt-3">
           <Footer />

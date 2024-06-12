@@ -88,7 +88,7 @@ const ViewProducts = () => {
                 {plant?.scientificName}
               </span>
             </div>
-            {plant?.commonName && (
+            {plant?.commonName ? (
               <div className="text-[#030229] font-bold text-md ">
                 {" "}
                 Common name:{" "}
@@ -96,6 +96,10 @@ const ViewProducts = () => {
                   {" "}
                   {plant?.commonName}
                 </span>
+              </div>
+            ) : (
+              <div className="text-[#030229] font-bold text-md ">
+                No common name for this plant
               </div>
             )}
 
@@ -115,11 +119,19 @@ const ViewProducts = () => {
                 {plant?.category}
               </span>
             </div>
+            <div>
+              <h1 className="text-[#030229] font-medium text-xl pt-2">
+                Description:
+              </h1>
+              <p className="text-[#030229B2] text-justify pt-1">
+                {plant?.description}
+              </p>
+            </div>
           </div>
         </div>
       </div>
       <div className="px-20 mt-[30rem] md:mt-5 lg:mts-[50rem] xls:mt-[30rem] 2xls:mt-80 w-[75%] m-auto">
-        {plant?.medicinalUse.length > 0 && (
+        {plant?.medicinalUse.length > 0 ? (
           <div>
             {" "}
             <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
@@ -135,46 +147,61 @@ const ViewProducts = () => {
               })}
             </ul>
           </div>
-        )}
-        {plant?.howToUse.length > 0 && (
-          <div>
-            {" "}
-            <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
-              {" "}
-              How To Use:{" "}
-            </h1>
-            <ul className="text-[#030229B2] text-sm">
-              {plant?.howToUse?.map((el) => {
-                console.log("how", el);
-                return <li className="list-disc py-1.5">{el}</li>;
-              })}
-            </ul>
-          </div>
+        ) : (
+          <span className="text-lg">No Medecinal use for this plant</span>
         )}
 
-        {plant?.measurements?.length > 0 && (
-          <>
-            <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
-              {" "}
-              A useful table for quick measurements:{" "}
-            </h1>
-            <ul className="text-[#030229B2] text-sm">
-              {plant?.measurements?.map((el) => {
-                return <li className="list-disc py-1.5">{el}</li>;
-              })}
-            </ul>
-          </>
-        )}
+        <div>
+          {" "}
+          <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+            {" "}
+            How To Use:{" "}
+          </h1>
+          <ul className="text-[#030229B2]">
+            {plant?.howToUse.length > 0 ? (
+              plant?.howToUse?.map((el, i) => {
+                console.log("how", el);
+                return (
+                  <li key={i} className="list-disc py-1.5">
+                    {el}
+                  </li>
+                );
+              })
+            ) : (
+              <span> No specific way for use this plant</span>
+            )}
+          </ul>
+        </div>
+
+        <>
+          <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+            {" "}
+            A useful table for quick measurements:{" "}
+          </h1>
+          <ul className="text-[#030229B2]">
+            {plant?.measurements?.length > 0 ? (
+              plant?.measurements?.map((el, i) => {
+                return (
+                  <li key={i} className="list-disc py-1.5">
+                    {el}
+                  </li>
+                );
+              })
+            ) : (
+              <span>No specific measurements</span>
+            )}
+          </ul>
+        </>
 
         {plant?.dosages?.all?.length > 0 ||
           plant?.dosages?.adults?.length > 0 ||
-          (plant?.dosages?.children?.length > 0 && (
+          (plant?.dosages?.children?.length > 0 ? (
             <div>
               <h1 className="text-[#030229] font-medium text-2xl text-center py-3">
                 {" "}
                 Dosages and preparation:{" "}
               </h1>
-              <ul className="text-[#030229B2] text-sm">
+              <ul className="text-[#030229B2]">
                 {plant?.dosages?.all?.map((el, i) => {
                   console.log("how", el);
                   return (
@@ -184,39 +211,86 @@ const ViewProducts = () => {
                   );
                 })}
               </ul>
-              <ul className="text-[#030229B2] text-sm">
-                {plant?.dosages?.adults?.map((el) => {
+              <ul className="text-[#030229B2]">
+                {plant?.dosages?.adults?.map((el, i) => {
                   console.log("how", el);
-                  return <li className="list-disc py-1.5">{el}</li>;
+                  return (
+                    <li key={i} className="list-disc py-1.5">
+                      {el}
+                    </li>
+                  );
                 })}
               </ul>
-              <ul className="text-[#030229B2] text-sm">
-                {plant?.dosages?.children?.map((el) => {
+              <ul className="text-[#030229B2]">
+                {plant?.dosages?.children?.map((el, i) => {
                   console.log("how", el);
-                  return <li className="list-disc py-1.5">{el}</li>;
+                  return (
+                    <li key={i} className="list-disc py-1.5">
+                      {el}
+                    </li>
+                  );
                 })}
               </ul>
             </div>
+          ) : (
+            "No Dosage and preparation provided"
           ))}
 
-        {plant?.sideEffect?.length > 0 && (
-          <>
-            <h1 className="text-[#030229] font-medium text-xl pt-4 text-center py-3">
-              Side effects
-            </h1>
-            <ul className="text-[#030229B2] text-sm">
-              {plant?.sideEffect?.map((el) => {
+        <h1 className="text-[#030229] font-medium text-xl pt-4 text-center py-3">
+          Side effects
+        </h1>
+        <ul className="text-[#030229B2]">
+          {plant?.sideEffect?.length > 0 ? (
+            plant?.sideEffect?.map((el, index) => {
+              console.log("how", el);
+              return (
+                <li key={index} className="list-disc py-1.5">
+                  {el}
+                </li>
+              );
+            })
+          ) : (
+            <span className="text-lg">No side effect for this Plant</span>
+          )}
+        </ul>
+        <div>
+          {" "}
+          <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+            {" "}
+            Cautions:{" "}
+          </h1>
+          <ul className="text-[#030229B2]">
+            {plant?.cautions.length > 0 ? (
+              plant?.cautions?.map((el, i) => {
                 console.log("how", el);
-                return <li className="list-disc py-1.5">{el}</li>;
+                return (
+                  <li key={i} className="list-disc py-1.5">
+                    {el}
+                  </li>
+                );
+              })
+            ) : (
+              <span className="text-lg"> No cautions for this plant</span>
+            )}
+          </ul>
+        </div>
+        {plant?.precautions.length > 0 && (
+          <div>
+            {" "}
+            <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+              {" "}
+              precautions:{" "}
+            </h1>
+            <ul className="text-[#030229B2]">
+              {plant?.precautions?.map((el, i) => {
+                return (
+                  <li key={i} className="list-disc py-1.5">
+                    {el}
+                  </li>
+                );
               })}
             </ul>
-            <h1 className="text-[#030229] font-medium text-xl pt-4 text-center py-3">
-              Description
-            </h1>
-            <p className="text-[#030229B2] text-sm pt-2">
-              {plant?.description}
-            </p>
-          </>
+          </div>
         )}
       </div>
 

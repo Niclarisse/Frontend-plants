@@ -221,13 +221,7 @@ const ProductDetails = () => {
               <IoMdStar color="#FFBA00" size={20} />
               <p>{plant?.totalrating} Review</p>
             </div>
-            <p className="text-[#030229] font-bold text-md pt-3">
-              Kinyarwanda Name
-              <span className="font-medium text-sm pl-4">
-                {" "}
-                {plant?.kinyarwandaName}
-              </span>
-            </p>
+
             <p className="text-[#030229] font-bold text-md py-1">
               {" "}
               Scientific name:{" "}
@@ -252,16 +246,10 @@ const ProductDetails = () => {
                 {plant?.price} RFW
               </span>
             </p>
-            <p className="text-[#030229B2] text-sm pt-2">
-              Family: <span className="pl-[5.5rem]">{plant?.slug} </span>
-            </p>
             <div className="flex gap-2">
               <span className=" text-sm text-center pt-1"> Part To Use: </span>
-              <ul className="text-[#030229B2] text-sm ml-10">
-                {plant?.partToUse?.map((el) => {
-                  console.log("how", el);
-                  return <li className="list-disc py-1.5">{el}</li>;
-                })}
+              <ul className="text-[#030229B2] text-sm ml-2">
+                {plant?.partToUse?.join(", ")}
               </ul>
             </div>
           </div>
@@ -305,10 +293,12 @@ const ProductDetails = () => {
           Medicinal use:{" "}
         </h1>
         <ul className="text-[#030229B2] text-sm">
-          {plant?.medicinalUse?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
+          {plant?.medicinalUse.length > 0
+            ? plant?.medicinalUse?.map((el) => {
+                console.log("how", el);
+                return <li className="list-disc py-1.5">{el}</li>;
+              })
+            : "No medecinal use for this plant"}
         </ul>
         <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
           {" "}
@@ -330,16 +320,23 @@ const ProductDetails = () => {
             return <li className="list-disc py-1.5">{el}</li>;
           })}
         </ul>
-        <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
-          {" "}
-          Measurements:{" "}
-        </h1>
-        <ul className="text-[#030229B2] text-sm">
-          {plant?.measurements?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
-        </ul>
+        {plant?.measurements.length > 0 ? (
+          <>
+            <h1 className="text-[#030229] font-medium text-2xl text-center py-1">
+              {" "}
+              Measurements:{" "}
+            </h1>
+            <ul className="text-[#030229B2] text-sm">
+              {plant?.measurements?.map((el) => {
+                console.log("how", el);
+                return <li className="list-disc py-1.5">{el}</li>;
+              })}
+            </ul>
+          </>
+        ) : (
+          ""
+        )}
+
         <h1 className="text-[#030229] font-medium text-2xl text-center py-3">
           {" "}
           Dosages and preparation:{" "}
@@ -371,10 +368,12 @@ const ProductDetails = () => {
           Side effects
         </h1>
         <ul className="text-[#030229B2] text-sm">
-          {plant?.sideEffect?.map((el) => {
-            console.log("how", el);
-            return <li className="list-disc py-1.5">{el}</li>;
-          })}
+          {plant?.sideEffect.length > 0
+            ? plant?.sideEffect?.map((el) => {
+                console.log("how", el);
+                return <li className="list-disc py-1.5">{el}</li>;
+              })
+            : "No side effect fot this plant"}
         </ul>
         <h1 className="text-[#030229] font-medium text-xl pt-4 text-center py-3">
           Description
